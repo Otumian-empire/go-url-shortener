@@ -1,0 +1,6 @@
+*.db*
+*.txt
+.vscode
+.idea
+.env
+vendor
