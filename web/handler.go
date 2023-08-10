@@ -27,13 +27,5 @@ func NewHandler(store repository.Store, router *gin.Engine) *gin.Engine {
 		urlRoutes.POST("/", urls.Create())
 	}
 
-	// h.Get("/", h.ReadUrls())
-	// h.Get("/:id", .Vote())
-	// h.Get("/register", users.Register())
-	// h.Post("/register", users.RegisterSubmit())
-	// h.Get("/login", users.Login())
-	// h.Post("/login", users.LoginSubmit())
-	// h.Get("/logout", users.Logout())
-
 	return h.router
 }

@@ -15,12 +15,9 @@ type UrlHandler struct {
 }
 
 func (handler *UrlHandler) Create() gin.HandlerFunc {
-	util.Log("Create a short a url")
 	return func(context *gin.Context) {
 		// get the data from the request body
 		var url entity.Url
-
-		util.Log(url.Original)
 
 		if err := context.BindJSON(&url); util.IsNotNil(err) {
 			util.Log(err)
@@ -31,7 +28,6 @@ func (handler *UrlHandler) Create() gin.HandlerFunc {
 		shortUrl := util.CreateHash(url.Original)
 
 		serverURL := fmt.Sprintf("%s/%s", context.Request.Host, shortUrl)
-		util.Log(serverURL)
 
 		id, err := handler.store.UrlStore.CreateUrl(serverURL, url.Original)
 
@@ -50,6 +46,7 @@ func (handler *UrlHandler) Read() gin.HandlerFunc {
 		urls, err := handler.store.UrlStore.Urls()
 
 		if util.IsNotNil(err) {
+			util.Log(err)
 			context.JSON(response.FailureMessageResponse(err.Error()))
 			return
 		}
@@ -63,6 +60,7 @@ func (handler *UrlHandler) ReadById() gin.HandlerFunc {
 		id, err := util.ToInt(context.Param("id"))
 
 		if util.IsNotNil(err) {
+			util.Log(err)
 			context.JSON(response.FailureMessageResponse(err.Error()))
 			return
 		}
@@ -70,6 +68,7 @@ func (handler *UrlHandler) ReadById() gin.HandlerFunc {
 		url, err := handler.store.UrlStore.Url(id)
 
 		if util.IsNotNil(err) {
+			util.Log(err)
 			context.JSON(response.FailureMessageResponse(err.Error()))
 			return
 		}

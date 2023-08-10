@@ -31,7 +31,7 @@ func FLog(obj ...interface{}) {
 
 func Recover() {
 	if err := recover(); IsNotNil(err) {
-		Log("Recover from an error")
+		Log(SERVER_RECOVER_FROM_ERROR)
 		Log(err)
 	}
 }

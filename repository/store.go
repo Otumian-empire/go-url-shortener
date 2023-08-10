@@ -20,7 +20,7 @@ func NewStore(driverName, dataSourceName string) (*Store, error) {
 		return nil, fmt.Errorf("%v: %w", DATABASE_OPENING_ERROR, err)
 	}
 
-	if err := db.Ping(); err != nil {
+	if err := db.Ping(); util.IsNotNil(err) {
 		return nil, fmt.Errorf("%v: %w", DATABASE_CONNECTING_ERROR, err)
 	}
 

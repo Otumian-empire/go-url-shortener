@@ -18,6 +18,7 @@ func main() {
 	ENV_CONST, err := godotenv.Read()
 
 	if util.IsNotNil(err) {
+		util.Log(err)
 		util.FLog(util.SERVER_LOADING_CREDENTIALS_ERROR)
 	}
 
@@ -33,12 +34,16 @@ func main() {
 	store, err := repository.NewStore(ENV_CONST["DATABASE_DRIVER_NAME"], databaseCre.FormatDSN())
 
 	if util.IsNotNil(err) {
+		util.Log(err)
 		util.FLog(err)
 	}
+
+	util.Log(util.DATABASE_CONNECTED)
 
 	// this handler here is a not a handler as defined in the NewHandler
 	// it is the route on passed to the new handler that is returned
 	handler := web.NewHandler(*store, gin.Default())
 
+	util.Log(fmt.Sprintf("%v: %v", util.SERVER_RUNNING_ON_PORT, ENV_CONST["SERVER_PORT"]))
 	http.ListenAndServe(fmt.Sprintf(":%v", ENV_CONST["SERVER_PORT"]), handler)
 }
