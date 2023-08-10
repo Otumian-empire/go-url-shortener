@@ -22,7 +22,7 @@ func main() {
 		util.FLog(util.SERVER_LOADING_CREDENTIALS_ERROR)
 	}
 
-	databaseCre := mysql.Config{
+	dbConfig := mysql.Config{
 		User:                 ENV_CONST["DATABASE_USERNAME"],
 		Passwd:               ENV_CONST["DATABASE_PASSWORD"],
 		Net:                  "tcp", // is tcp by default
@@ -31,7 +31,7 @@ func main() {
 		AllowNativePasswords: true,
 	}
 
-	store, err := repository.NewStore(ENV_CONST["DATABASE_DRIVER_NAME"], databaseCre.FormatDSN())
+	store, err := repository.NewStore(ENV_CONST["DATABASE_DRIVER_NAME"], dbConfig.FormatDSN())
 
 	if util.IsNotNil(err) {
 		util.Log(err)

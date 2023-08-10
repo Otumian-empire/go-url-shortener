@@ -2,6 +2,7 @@ package web
 
 import (
 	"fmt"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/otumian-empire/go-url-shortener/entity"
@@ -25,11 +26,11 @@ func (handler *UrlHandler) Create() gin.HandlerFunc {
 			return
 		}
 
-		shortUrl := util.CreateHash(url.Original)
+		OriginalUrlHash := util.CreateHash(url.Original)
 
-		serverURL := fmt.Sprintf("%s/%s", context.Request.Host, shortUrl)
+		shortUrl := fmt.Sprintf("%s/%s", context.Request.Host, OriginalUrlHash)
 
-		id, err := handler.store.UrlStore.CreateUrl(serverURL, url.Original)
+		id, err := handler.store.UrlStore.CreateUrl(shortUrl, url.Original)
 
 		if util.IsNotNil(err) {
 			util.Log(err)
@@ -98,5 +99,24 @@ func (handler *UrlHandler) DeleteById() gin.HandlerFunc {
 }
 
 func (handler *UrlHandler) GerOriginalUrl() gin.HandlerFunc {
-	panic("Not Implemented")
+	return func(context *gin.Context) {
+		OriginalUrlHash := context.Param("hash")
+
+		if util.IsEmpty(OriginalUrlHash) {
+			context.JSON(response.FailureMessageResponse(util.VALUE_INVALID))
+			return
+		}
+
+		shortUrl := fmt.Sprintf("%s/%s", context.Request.Host, OriginalUrlHash)
+
+		url, err := handler.store.UrlStore.OriginalUrl(shortUrl)
+
+		if util.IsNotNil(err) {
+			util.Log(err)
+			context.JSON(response.FailureMessageResponse(err.Error()))
+			return
+		}
+		util.Log("Redirecting to:", url.Original)
+		context.Redirect(http.StatusMovedPermanently, url.Original)
+	}
 }

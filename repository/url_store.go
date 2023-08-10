@@ -13,7 +13,6 @@ type UrlStore struct {
 	*sql.DB
 }
 
-// TODO:
 func (urlStore *UrlStore) CreateUrl(shortUrl, originalUrl string) (int, error) {
 	result, err := urlStore.Exec(INSERT_QUERY, shortUrl, originalUrl)
 
@@ -97,4 +96,18 @@ func (urlStore *UrlStore) DeleteUrl(id int) error {
 	}
 
 	return nil
+}
+
+func (urlStore *UrlStore) OriginalUrl(shortUrl string) (entity.Url, error) {
+	row := urlStore.QueryRow(SELECT_URL_BY_SHORT_URL_QUERY, shortUrl)
+
+	var url entity.Url
+
+	err := row.Scan(&url.Id, &url.Short, &url.Original, &url.CreatedAt)
+
+	if util.IsNotNil(err) {
+		return entity.Url{}, err
+	}
+
+	return url, nil
 }

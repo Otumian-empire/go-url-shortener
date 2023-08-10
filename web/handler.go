@@ -20,6 +20,7 @@ func NewHandler(store repository.Store, router *gin.Engine) *gin.Engine {
 	urls := UrlHandler{store: store}
 	// add other controllers here
 
+	// endpoints specific to CR_D of the url
 	urlRoutes := h.router.Group("/url")
 	{
 		urlRoutes.GET("/", urls.Read())
@@ -27,6 +28,9 @@ func NewHandler(store repository.Store, router *gin.Engine) *gin.Engine {
 		urlRoutes.POST("/", urls.Create())
 		urlRoutes.DELETE("/:id", urls.DeleteById())
 	}
+
+	// endpoint to redirect to the actual url
+	h.router.GET("/:hash", urls.GerOriginalUrl())
 
 	return h.router
 }

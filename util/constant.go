@@ -2,7 +2,7 @@ package util
 
 // Application constants
 const (
-	URL_INVALID = "provide a valid url"
+	VALUE_INVALID = "provide a valid value"
 )
 
 // Status codes

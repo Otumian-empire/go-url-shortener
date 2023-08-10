@@ -43,7 +43,7 @@ func ToInt(str string) (int, error) {
 
 func StringValidation(str string) error {
 	if IsNil(str) || IsEmpty(str) {
-		return fmt.Errorf(URL_INVALID)
+		return fmt.Errorf(VALUE_INVALID)
 	}
 
 	return nil

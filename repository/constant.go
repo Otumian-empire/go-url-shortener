@@ -16,8 +16,9 @@ const (
 
 // Sql queries
 const (
-	SELECT_URL_QUERY       = "SELECT `id`, `short`, `original`, `created_at` FROM `url_shortener`"
-	SELECT_URL_BY_ID_QUERY = "SELECT `id`, `short`, `original`, `created_at` FROM `url_shortener` WHERE`id`=?"
-	INSERT_QUERY           = "INSERT INTO `url_shortener`(`short`, `original`) VALUES (?, ?)"
-	DELETE_QUERY           = "DELETE FROM `url_shortener` WHERE`id`=?"
+	SELECT_URL_QUERY              = "SELECT `id`, `short`, `original`, `created_at` FROM `url_shortener`"
+	SELECT_URL_BY_ID_QUERY        = "SELECT `id`, `short`, `original`, `created_at` FROM `url_shortener` WHERE `id`=?"
+	SELECT_URL_BY_SHORT_URL_QUERY = "SELECT `id`, `short`, `original`, `created_at` FROM `url_shortener` WHERE `short`=?"
+	INSERT_QUERY                  = "INSERT INTO `url_shortener`(`short`, `original`) VALUES (?, ?)"
+	DELETE_QUERY                  = "DELETE FROM `url_shortener` WHERE`id`=?"
 )
