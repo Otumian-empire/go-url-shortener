@@ -1,0 +1,3 @@
+-- Create database `go_database` or replace with the database name of your choice
+-- or just remove it, `go_database`.`url_shortener` to just `url_shortener`
+CREATE TABLE `go_database`.`url_shortener` (`id` INT NOT NULL AUTO_INCREMENT , `short` VARCHAR(255) NOT NULL , `original` TEXT NOT NULL , `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`), UNIQUE (`short`), UNIQUE (`original`))
