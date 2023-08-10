@@ -16,6 +16,7 @@ const (
 	URLS_READ_SUCCESSFULLY   = "urls read successfully"
 	URL_READ_SUCCESSFULLY    = "url read successfully"
 	URL_CREATED_SUCCESSFULLY = "url created successfully"
+	URL_DELETED_SUCCESSFULLY = "url deleted successfully"
 )
 
 // Server error messages

@@ -25,6 +25,7 @@ func NewHandler(store repository.Store, router *gin.Engine) *gin.Engine {
 		urlRoutes.GET("/", urls.Read())
 		urlRoutes.GET("/:id", urls.ReadById())
 		urlRoutes.POST("/", urls.Create())
+		urlRoutes.DELETE("/:id", urls.DeleteById())
 	}
 
 	return h.router

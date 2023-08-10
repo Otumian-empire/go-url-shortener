@@ -78,7 +78,23 @@ func (handler *UrlHandler) ReadById() gin.HandlerFunc {
 }
 
 func (handler *UrlHandler) DeleteById() gin.HandlerFunc {
-	panic("Not Implemented")
+	return func(context *gin.Context) {
+		id, err := util.ToInt(context.Param("id"))
+
+		if util.IsNotNil(err) {
+			util.Log(err)
+			context.JSON(response.FailureMessageResponse(err.Error()))
+			return
+		}
+
+		if err := handler.store.UrlStore.DeleteUrl(id); util.IsNotNil(err) {
+			util.Log(err)
+			context.JSON(response.FailureMessageResponse(err.Error()))
+			return
+		}
+
+		context.JSON(response.SuccessMessageResponse(util.URL_DELETED_SUCCESSFULLY))
+	}
 }
 
 func (handler *UrlHandler) GerOriginalUrl() gin.HandlerFunc {

@@ -2,14 +2,14 @@ package repository
 
 // Literal constants
 const (
-	DEFAULT_INT = 0
+	DEFAULT_INT = 1
 )
 
 // Database error messages
 const (
 	INSERT_ERROR              = "an error occurred while inserting"
 	READING_ERROR             = "an error occurred while reading"
-	DELETE_ERROR              = "an error occurred while deleting"
+	DELETE_ERROR              = "an error occurred while deleting: row not found"
 	DATABASE_OPENING_ERROR    = "an error occurred opening database"
 	DATABASE_CONNECTING_ERROR = "an error occurred connecting database"
 )
